@@ -14,4 +14,16 @@ RSpec.describe Photo, type: :model do
     photo = FactoryBot.create(:photo)
     expect(photo.orientation).to eq Photo::ORIENTATION_PORTRAIT
   end
+
+  it "has a scope that returns photos with the lowest count" do
+    photo_a = FactoryBot.create(:photo)
+    photo_b = FactoryBot.create(:photo)
+    photo_c = FactoryBot.create(:photo)
+
+    3.times { FactoryBot.create(:daily_photo, photo: photo_a) }
+    3.times { FactoryBot.create(:daily_photo, photo: photo_b) }
+    2.times { FactoryBot.create(:daily_photo, photo: photo_c) }
+
+    expect(described_class.least_shown).to eq [photo_c]
+  end
 end

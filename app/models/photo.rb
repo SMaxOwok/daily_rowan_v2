@@ -8,6 +8,12 @@ class Photo < ApplicationRecord
   has_one_attached :image
   has_many :daily_photos, dependent: :destroy
 
+  # Scopes
+  scope :least_shown, -> do
+    count = order(daily_photos_count: :asc).pluck(:daily_photos_count).first
+    where(daily_photos_count: count)
+  end
+
   # Validations
   validates :dimensions, presence: true
   validates :orientation, inclusion: { in: VALID_ORIENTATIONS }
@@ -29,6 +35,14 @@ class Photo < ApplicationRecord
 
   def portrait?
     orientation == ORIENTATION_PORTRAIT
+  end
+
+  class << self
+    def available_photos
+      return new_photos if new_photos.any?
+      return upcoming_photos if upcoming_photos.any?
+      all
+    end
   end
 
   private
