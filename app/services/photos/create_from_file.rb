@@ -18,7 +18,7 @@ module Photos
     end
 
     def queue_image
-      PhotoCreateJob.perform_later upload
+      PhotoCreateJob.perform_now upload
     end
 
     def zip?
@@ -27,19 +27,23 @@ module Photos
 
     def extract
       ::Zip::File.open(upload) do |zip_file|
-        zip_file.each do |f|
+        files = zip_file.select(&:file?)
+        files.reject! { |f| f.name =~ /\.DS_Store|__MACOSX|(^|\/)\._/ }
+
+        files.each do |f|
           fpath = File.join(UPLOAD_DIR, f.name)
           FileUtils.mkdir_p(File.dirname(fpath))
-          zip_file.extract(f, fpath) unless File.exist?(fpath)
+
+          zip_file.extract(f, fpath)
         end
       end
     end
 
     def queue_images
-      images = Dir.glob(Rails.root.join(UPLOAD_DIR, "*"))
+      images = Dir.glob(Rails.root.join(UPLOAD_DIR, "*")).select { |file| File.file? file }
       return unless images.present?
 
-      QueuePhotoCreateJobs.perform_later images
+      QueuePhotoCreateJobs.perform_now images
     end
 
   end
