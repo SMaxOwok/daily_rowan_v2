@@ -1,6 +1,6 @@
 require "fileutils"
 
-class PhotoCreateJob < ActiveJob::Base
+class CreatePhotoByPathJob < ActiveJob::Base
 
   def perform(path)
     return unless path.present?

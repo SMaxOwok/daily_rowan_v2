@@ -1,8 +1,8 @@
 require "zip"
 
 module Photos
-  class CreateFromFile < ActiveInteraction::Base
-    file :upload
+  class Creator < ActiveInteraction::Base
+    object :upload
 
     UPLOAD_DIR = Rails.root.join("tmp", "image_uploads")
 
@@ -12,21 +12,12 @@ module Photos
 
     private
 
-    def extract_and_queue_images
-      extract
-      queue_images
-    end
-
-    def queue_image
-      PhotoCreateJob.perform_now upload
-    end
-
     def zip?
-      File.extname(upload) == ".zip"
+      File.extname(upload.filename) == ".zip"
     end
 
     def extract
-      ::Zip::File.open(upload) do |zip_file|
+      ::Zip::File.open(upload.file_on_disk) do |zip_file|
         files = zip_file.select(&:file?)
         files.reject! { |f| f.name =~ /\.DS_Store|__MACOSX|(^|\/)\._/ }
 
@@ -39,11 +30,20 @@ module Photos
       end
     end
 
+    def extract_and_queue_images
+      extract
+      queue_images
+    end
+
     def queue_images
       images = Dir.glob(Rails.root.join(UPLOAD_DIR, "*")).select { |file| File.file? file }
       return unless images.present?
 
       QueuePhotoCreateJobs.perform_now images
+    end
+
+    def queue_image
+      CreatePhotoByUploadJob.perform_later upload
     end
 
   end
