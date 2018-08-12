@@ -4,7 +4,7 @@ class QueuePhotoCreateJobs < ActiveJob::Base
     return unless image_paths.present?
 
     image_paths.each do |path|
-      PhotoCreateJob.perform_later path
+      PhotoCreateJob.perform_now path
     end
   end
 
