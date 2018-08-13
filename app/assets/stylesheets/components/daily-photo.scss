@@ -1,0 +1,17 @@
+.daily-photo {
+
+  .portrait {
+    width: auto;
+    max-height: 550px;
+
+    @include respond($break40) {
+      max-height: 700px;
+    }
+  }
+
+  .landscape {
+    width: 100%;
+    height: auto;
+    max-width: 850px;
+  }
+}

@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem "active_interaction", "~> 3.6"
+gem "autoprefixer-rails"
 gem "dotenv-rails", "~> 2.0"
 gem "foreman"
 gem "mini_magick"

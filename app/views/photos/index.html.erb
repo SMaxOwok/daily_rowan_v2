@@ -1,4 +1,20 @@
 <h1 class="main-title">Daily Rowan</h1>
-<div class="daily-photo">
-  <%= image_tag @daily_photo.photo.image %>
-</div>
+
+<% if @daily_photo.present? %>
+  <div class="daily-photo">
+    <%= image_tag @daily_photo.photo.image, class: "photo #{@daily_photo.photo.orientation}" %>
+  </div>
+<% end %>
+
+<% if @last_five.any? %>
+  <div class="last-five">
+    <p class="recent-photos">Recent Photos</p>
+    <div class="photo-container">
+      <% @last_five.each do |dp| %>
+        <div class="previous-photo photo">
+          <%= image_tag dp.photo.image, class: "#{dp.photo.orientation}" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

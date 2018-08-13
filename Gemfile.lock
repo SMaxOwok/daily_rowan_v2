@@ -45,6 +45,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    autoprefixer-rails (9.1.0)
+      execjs
     builder (3.2.3)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
@@ -196,6 +198,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_interaction (~> 3.6)
+  autoprefixer-rails
   database_cleaner
   dotenv-rails (~> 2.0)
   factory_bot_rails

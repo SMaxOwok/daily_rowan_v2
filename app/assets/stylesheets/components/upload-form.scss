@@ -1,0 +1,17 @@
+.upload-form {
+  margin-top: 25px;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .upload-button {
+    @include buttonPrimary;
+    display: inline-block;
+  }
+
+  input[type="submit"] {
+    @include buttonPrimary;
+    margin-top: 15px;
+  }
+}

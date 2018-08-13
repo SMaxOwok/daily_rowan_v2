@@ -1,8 +1,17 @@
-<%= form_tag "/upload", multipart: true, method: :post do %>
+<div class="notice-container">
+  <% flash.each do |key, value| %>
+    <%= content_tag :div, value, class: "flash #{key}" %>
+  <% end %>
+</div>
+
+<%= form_tag "/upload", class: "upload-form", multipart: true, method: :post do %>
+  <label for="upload-file" class="upload-button">
+    <span>Choose File</span>
+    <input type="file" name="upload[file]" id="upload-file">
+  </label>
+
   <p>
-    <%= file_field_tag "upload[file]" %>
-  </p>
-  <p>
-    <%= submit_tag "Upload" %>
+    <span class="loader"><span></span><span></span><span></span><span></span></span>
+    <input type="submit" name="submit" value="Upload" data-disable-with="Upload" id="upload-form-submit">
   </p>
 <% end %>

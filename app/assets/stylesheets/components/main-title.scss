@@ -1,0 +1,8 @@
+.main-title {
+  font-size: 32px;
+  margin-top: 0;
+
+  @include respond($break40) {
+    font-size: 48px;
+  }
+}

@@ -1,0 +1,35 @@
+.last-five {
+  margin-top: 45px;
+
+  .photo-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-top: -20px;
+
+    .previous-photo {
+      position: relative;
+      height: 150px;
+      width: 150px;
+      overflow: hidden;
+      margin: 20px 10px 0;
+
+      img {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        &.landscape {
+          height: 100%;
+          width: auto;
+        }
+
+        &.portrait {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+}

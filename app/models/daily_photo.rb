@@ -8,8 +8,12 @@ class DailyPhoto < ApplicationRecord
 
   class << self
     def get_current
+      photo = Photo.least_shown.sample
+
+      return nil unless photo.present?
+
       where(date: Date.current).first_or_create do |daily_photo|
-        daily_photo.photo = Photo.least_shown.sample
+        daily_photo.photo = photo
       end
     end
   end

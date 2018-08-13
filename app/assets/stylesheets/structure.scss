@@ -1,0 +1,20 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:500);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: url(halftone.png);
+  font-family: "Ubuntu", sans-serif;
+  color: #572727;
+}
+
+main {
+  padding: 25px 35px 45px;
+  text-align: center;
+
+  @include respond($break40) {
+    padding: 25px 50px 45px;
+  }
+}
