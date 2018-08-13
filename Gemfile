@@ -7,7 +7,7 @@ end
 
 gem "active_interaction", "~> 3.6"
 gem "dotenv-rails", "~> 2.0"
-gem "jbuilder", "~> 2.5"
+gem "foreman"
 gem "mini_magick"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 3.7"
