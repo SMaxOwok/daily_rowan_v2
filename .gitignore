@@ -6,3 +6,4 @@
 !/tmp/.keep
 /storage
 .env
+dump.rdb
