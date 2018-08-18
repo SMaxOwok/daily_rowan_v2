@@ -16,8 +16,12 @@ module Photos
       File.extname(upload.filename) == ".zip"
     end
 
+    def file_stream
+      StringIO.new upload.file.blob.download
+    end
+
     def extract
-      ::Zip::File.open(upload.file_on_disk) do |zip_file|
+      ::Zip::File.open_buffer(file_stream) do |zip_file|
         files = zip_file.select(&:file?)
         files.reject! { |f| f.name =~ /\.DS_Store|__MACOSX|(^|\/)\._/ }
 
@@ -40,7 +44,7 @@ module Photos
       images = Dir.glob(Rails.root.join(UPLOAD_DIR, "*")).select { |file| File.file? file }
       return unless images.present?
 
-      QueuePhotoCreateJobs.perform_now images
+      QueuePhotoCreateJobs.perform_later images
     end
 
     def queue_image

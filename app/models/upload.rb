@@ -11,10 +11,6 @@ class Upload < ApplicationRecord
     file.blob.filename.to_s
   end
 
-  def file_on_disk
-    ActiveStorage::Blob.service.send(:path_for, file.key)
-  end
-
   private
 
   def valid_file!
