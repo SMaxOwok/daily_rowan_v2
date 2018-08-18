@@ -1,19 +1,18 @@
 language: ruby
-
 rvm:
 - 2.3.3
-
-bundler_args: --jobs=2
-
+bundler_args: "--jobs=2"
 script:
 - bundle exec rake db:setup
 - bundle exec rspec -fd
-
 cache: bundler
-
 services:
 - postgresql
 - redis-server
-
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
+deploy:
+  provider: heroku
+  app: daily-rowan
+  api_key:
+    secure: SBD2AVrfrwS4ZIY6gCezD+VVA7pHZDrdjw7fIQBIcEKQMWqdvaxxwEOP2Dg91wdG1VSdW3vfm99ZubM8dzy+pUSEPAYVW3rA7NtVoi297szBIrRN3vj6dfNXSZ9ivRK6rS9imR9837KH+k8+gCKDnIhCYbILKwCqS6rF2CdwKbxyeLwngpR2srfrk8djsNzq08CQySYU9Hrd7wuDbDQr6La5Lv+bhjIRXR+UzV+H6+S5Y7mO71ka3OxNYUfZ72bss/LervskEwzuxL8DnmgUo4FRco3TYyIt9NOLwGPfIScBFEUhIMaf75qMg/rbBHW0SzosE28yr0wryBshpwLpdCL/doEJNxfVvEm4XEpqptbXisMPduL4nLy98sKABB9eIImxoDo4kQj8q3//dzdSf0KFf+4z3qXbstfy2wchqthXhcMRPqtSBCN1c1HeKAbOJRexs4aYZmsrmCWFbyYYhb6kcOHiZSNfbo6ZBYwNgXQ6beAnfzPyeC1PrNauBthYIOG3DhRFaeoXdysaSCfaB6irLCCHwjIlc+ZQ8VBMUZFOQTDPyBkG5hzCpGxdozK1o7eOZwtxwLC1RnfPtGQTKui9aBdjLEb+K0cMG7W2x9Xd9LmSRSXG4itmJMxzty3vl/GMGRtSeXq+6pgpa0sVTDJuMCIHEry8kaz1lzNokZw=
