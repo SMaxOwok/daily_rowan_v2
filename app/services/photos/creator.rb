@@ -33,6 +33,7 @@ module Photos
     def extract_and_queue_images
       extract
       queue_images
+      upload.file.purge_later
     end
 
     def queue_images

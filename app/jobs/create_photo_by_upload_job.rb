@@ -10,7 +10,7 @@ class CreatePhotoByUploadJob < ActiveJob::Base
     end
 
     if photo.persisted?
-      upload.destroy
+      upload.file.purge_later
     end
   end
 
