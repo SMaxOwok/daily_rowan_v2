@@ -13,6 +13,10 @@ class Photo < ApplicationRecord
     count = order(daily_photos_count: :asc).pluck(:daily_photos_count).first
     where(daily_photos_count: count)
   end
+  scope :not_recent, -> do
+    recent_ids = DailyPhoto.last_five.pluck(:photo_id)
+    where.not(id: recent_ids)
+  end
 
   # Validations
   validates :dimensions, presence: true
