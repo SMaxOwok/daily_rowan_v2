@@ -2,7 +2,12 @@
 
 <% if @daily_photo.present? %>
   <div class="daily-photo">
-    <%= image_tag @daily_photo.photo.image, class: "photo #{@daily_photo.photo.orientation}" %>
+    <a href="<%= url_for(@daily_photo.image) %>"
+       data-lightbox="daily-photo"
+       data-title="<%= @daily_photo.date.strftime('%B %d, %Y') %>"
+     >
+      <%= image_tag @daily_photo.image, class: "photo #{@daily_photo.orientation}" %>
+    </a>
   </div>
 <% end %>
 
@@ -10,9 +15,14 @@
   <div class="last-five">
     <p class="recent-photos">Recent Photos</p>
     <div class="photo-container">
-      <% @last_five.each do |dp| %>
+      <% @last_five.each_with_index do |dp, index| %>
         <div class="previous-photo photo">
-          <%= image_tag dp.photo.image, class: "#{dp.photo.orientation}" %>
+          <a href="<%= url_for(dp.image) %>"
+             data-lightbox="previous-photo-<%= index %>"
+             data-title="<%= dp.date.strftime('%B %d, %Y') %>"
+          >
+            <%= image_tag dp.image, class: "#{dp.orientation}" %>
+          </a>
         </div>
       <% end %>
     </div>

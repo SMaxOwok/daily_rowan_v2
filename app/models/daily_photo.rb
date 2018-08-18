@@ -6,6 +6,9 @@ class DailyPhoto < ApplicationRecord
   # Scopes
   scope :last_five, -> { order(created_at: :desc).offset(1).limit(5).reverse_order }
 
+  delegate :image, to: :photo
+  delegate :orientation, to: :photo
+
   class << self
     def get_current
       photo = Photo.least_shown.not_recent.sample
