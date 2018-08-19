@@ -11,7 +11,7 @@ body {
 }
 
 main {
-  padding: 25px 35px 45px;
+  padding: 25px 10px 45px;
   text-align: center;
 
   @include respond($break40) {
