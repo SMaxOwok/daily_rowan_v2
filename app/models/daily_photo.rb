@@ -11,7 +11,13 @@ class DailyPhoto < ApplicationRecord
 
   class << self
     def get_current
-      photo = Photo.least_shown.not_recent.sample
+      photos = Photo.least_shown
+
+      photo = if photos.not_recent.any?
+                photos.not_recent.sample
+              else
+                photos.sample
+              end
 
       return nil unless photo.present?
 
