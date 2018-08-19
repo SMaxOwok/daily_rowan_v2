@@ -4,7 +4,7 @@ class DailyPhoto < ApplicationRecord
   belongs_to :photo, counter_cache: true
 
   # Scopes
-  scope :last_five, -> { order(created_at: :desc).offset(1).limit(5).reverse_order }
+  scope :last_five, -> { order(created_at: :desc).offset(1).limit(5) }
 
   delegate :image, to: :photo
   delegate :orientation, to: :photo
